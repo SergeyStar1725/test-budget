@@ -1,0 +1,1 @@
+ALTER TABLE budget ADD COLUMN author int;
