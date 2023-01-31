@@ -19,6 +19,8 @@ class BudgetApiKtTest : ServerTest() {
 
     @Test
     fun testBudgetPagination() {
+
+
         addRecord(BudgetRecord(2020, 5, 10, BudgetType.Приход))
         addRecord(BudgetRecord(2020, 5, 5, BudgetType.Приход))
         addRecord(BudgetRecord(2020, 5, 20, BudgetType.Приход))
