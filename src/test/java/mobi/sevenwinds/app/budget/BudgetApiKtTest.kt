@@ -25,12 +25,12 @@ class BudgetApiKtTest : ServerTest() {
         addAuthor(AuthorRecord("1"))
         addAuthor(AuthorRecord("2"))
 
-        addRecordBudget(BudgetRecord(2020, 5, 10, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 5, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 20, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 30, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 40, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2030, 1, 1, BudgetType.Расход))
+        addRecordBudget(BudgetRecord(2020, 5, 10, BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 5,  BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 20, BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 30, BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 40, BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2030, 1, 1,  BudgetType.Расход, null))
 
         RestAssured.given()
             .queryParam("limit", 3)
@@ -47,11 +47,11 @@ class BudgetApiKtTest : ServerTest() {
 
     @Test
     fun testStatsSortOrder() {
-        addRecordBudget(BudgetRecord(2020, 5, 100, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 1, 5, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 50, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 1, 30, BudgetType.Приход))
-        addRecordBudget(BudgetRecord(2020, 5, 400, BudgetType.Приход))
+        addRecordBudget(BudgetRecord(2020, 5, 100, BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 1, 5,   BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 50,  BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 1, 30,  BudgetType.Приход, null))
+        addRecordBudget(BudgetRecord(2020, 5, 400, BudgetType.Приход, null))
 
         // expected sort order - month ascending, amount descending
 
@@ -71,12 +71,12 @@ class BudgetApiKtTest : ServerTest() {
     @Test
     fun testInvalidMonthValues() {
         RestAssured.given()
-            .jsonBody(BudgetRecord(2020, -5, 5, BudgetType.Приход))
+            .jsonBody(BudgetRecord(2020, -5, 5, BudgetType.Приход, null))
             .post("/budget/add")
             .then().statusCode(400)
 
         RestAssured.given()
-            .jsonBody(BudgetRecord(2020, 15, 5, BudgetType.Приход))
+            .jsonBody(BudgetRecord(2020, 15, 5, BudgetType.Приход, null))
             .post("/budget/add")
             .then().statusCode(400)
     }
